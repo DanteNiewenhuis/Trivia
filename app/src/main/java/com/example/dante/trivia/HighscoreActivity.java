@@ -2,7 +2,9 @@ package com.example.dante.trivia;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,8 @@ public class HighscoreActivity extends AppCompatActivity implements HighscoresHe
 
     @Override
     public void gotHighscoresError(String message) {
-
+        Log.d("error", message);
+        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
+        toast.show();
     }
 }

@@ -79,6 +79,8 @@ public class GameActivity extends AppCompatActivity implements TriviaHelper.Call
 
         if (questions_answered == 10) {
             //TODO add to highscores
+            HighscoresHelper highscoreHelper = new HighscoresHelper(this);
+            highscoreHelper.postNewHighscore("test", "test", score);
             finish();
         }
         question_request.getNextQuestion(this);
