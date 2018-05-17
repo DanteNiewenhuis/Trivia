@@ -3,28 +3,24 @@ package com.example.dante.trivia;
 import android.content.Context;
 import android.util.Log;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
 
 public class HighscoresHelper implements Response.Listener<JSONObject>, Response.ErrorListener{
     private Context context;
     private Callback activity;
     private DatabaseReference mDatabase;
+    private ArrayList<Highscore> highscores;
 
     public interface Callback {
         void gotHighscores(ArrayList<Highscore> highscores);
@@ -63,17 +59,36 @@ public class HighscoresHelper implements Response.Listener<JSONObject>, Response
     public HighscoresHelper(Context context) {
         this.context = context;
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                highscores = new ArrayList<>();
+                Log.d("onChange", "empty");
+                for (DataSnapshot score : dataSnapshot.child("highscores").getChildren()) {
+
+                    Log.d("onChange", "add");
+                    Highscore item = score.getValue(Highscore.class);
+                    highscores.add(item);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void getHighscores(Callback activity) {
         this.activity = activity;
-        RequestQueue queue = Volley.newRequestQueue(context);
-        Log.d("get highscore", "init");
+        activity.gotHighscores(highscores);
     }
 
-    public void postNewHighscore(String userId, String name, int score) {
+    public void postNewHighscore(String name, int score) {
         Highscore highscore = new Highscore(name, score);
 
+        String userId = mDatabase.push().getKey();
         mDatabase.child("highscores").child(userId).setValue(highscore);
     }
 }

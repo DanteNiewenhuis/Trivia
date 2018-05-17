@@ -4,6 +4,10 @@ public class Highscore {
     String name;
     int score;
 
+    public Highscore() {
+
+    }
+
     public Highscore(String name, int score) {
         this.name = name;
         this.score = score;
