@@ -26,15 +26,24 @@ public class HighscoreAdapter extends ArrayAdapter<Highscore> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.highscore_item, parent, false);
         }
 
+        // get the info of the items
         Highscore item = items.get(position);
         String name = item.getName();
+        String date = item.getDate();
+        int correct = item.getQuestions_correct();
         int score = item.getScore();
 
+        // get the views
         TextView name_view = convertView.findViewById(R.id.highscore_name);
         TextView score_view = convertView.findViewById(R.id.highscore_score);
+        TextView date_view = convertView.findViewById(R.id.highscore_date);
+        TextView correct_view = convertView.findViewById(R.id.highscore_correct);
 
+        // set the info to the views.
         name_view.setText(name);
         score_view.setText(Integer.toString(score));
+        date_view.setText(date);
+        correct_view.setText(correct + "/10");
 
         return convertView;
     }

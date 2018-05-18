@@ -9,15 +9,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 public class HighscoreActivity extends AppCompatActivity implements HighscoresHelper.Callback{
-    private HighscoresHelper highscores_request;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_highscore);
 
-        highscores_request = new HighscoresHelper(this);
-        highscores_request.getHighscores(this);
+        new HighscoresHelper(this).getHighscores(this);
     }
 
     @Override
@@ -28,7 +26,6 @@ public class HighscoreActivity extends AppCompatActivity implements HighscoresHe
 
     @Override
     public void gotHighscoresError(String message) {
-        Log.d("error", message);
         Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
         toast.show();
     }

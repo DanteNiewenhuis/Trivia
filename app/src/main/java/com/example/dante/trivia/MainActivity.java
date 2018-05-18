@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.logging.Logger;
 
@@ -16,8 +18,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View v) {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
+        EditText name_input = findViewById(R.id.name_input);
+        String name = name_input.getText().toString();
+
+        if (name.length() == 0) {
+            TextView warning = findViewById(R.id.warning_text);
+            warning.setVisibility(View.VISIBLE);
+        }
+        else {
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("name", name);
+            startActivity(intent);
+        }
     }
 
     public void highscores(View v) {
