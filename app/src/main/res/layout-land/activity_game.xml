@@ -59,7 +59,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
         android:text="question 4"
-        app:layout_constraintEnd_toStartOf="@+id/score_view"
+        app:layout_constraintEnd_toStartOf="@+id/detail_score_view"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,11 +74,11 @@
         android:text="2 correct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toEndOf="@+id/score_view"
+        app:layout_constraintStart_toEndOf="@+id/detail_score_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/score_view"
+        android:id="@+id/detail_score_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

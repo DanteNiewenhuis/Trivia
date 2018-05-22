@@ -39,14 +39,15 @@
 
     <TextView
         android:id="@+id/response_text"
-        android:layout_width="376dp"
-        android:layout_height="32dp"
+        android:layout_width="369dp"
+        android:layout_height="106dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Response"
         android:textAlignment="center"
         android:textSize="18sp"
+        app:autoSizeTextType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit_answer" />
@@ -59,7 +60,7 @@
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
         android:text="question 4"
-        app:layout_constraintEnd_toStartOf="@+id/score_view"
+        app:layout_constraintEnd_toStartOf="@+id/detail_score_view"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -74,11 +75,11 @@
         android:text="2 correct"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
-        app:layout_constraintStart_toEndOf="@+id/score_view"
+        app:layout_constraintStart_toEndOf="@+id/detail_score_view"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/score_view"
+        android:id="@+id/detail_score_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -96,7 +97,7 @@
     <RadioGroup
         android:id="@+id/answers_group"
         android:layout_width="346dp"
-        android:layout_height="258dp"
+        android:layout_height="200dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -110,6 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:checked="true"
             android:text="RadioButton" />
 
         <RadioButton

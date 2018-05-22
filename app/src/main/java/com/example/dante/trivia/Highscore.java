@@ -1,6 +1,9 @@
 package com.example.dante.trivia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Highscore implements Serializable{
     private String name;
@@ -8,6 +11,7 @@ public class Highscore implements Serializable{
     private int questions_answered = 0;
     private int questions_correct = 0;
     private String date;
+    private List<Question> questions = new ArrayList<>();
 
     public Highscore() {
 
@@ -68,5 +72,17 @@ public class Highscore implements Serializable{
 
     public void setQuestions_correct(int questions_correct) {
         this.questions_correct = questions_correct;
+    }
+
+    public List<Question> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void addQuestion(Question nextQuestion) {
+        this.questions.add(nextQuestion);
     }
 }
