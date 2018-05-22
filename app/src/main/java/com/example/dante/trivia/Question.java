@@ -1,6 +1,8 @@
 package com.example.dante.trivia;
 
-public class Question {
+import java.io.Serializable;
+
+public class Question implements Serializable {
     private String question;
     private String[] answers;
     private String correctAnswer;

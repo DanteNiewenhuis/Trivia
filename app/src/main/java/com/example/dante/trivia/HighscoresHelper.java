@@ -2,22 +2,28 @@ package com.example.dante.trivia;
 
 import android.app.DownloadManager;
 import android.content.Context;
-import android.util.Log;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+<<<<<<< HEAD
 import org.json.JSONArray;
 import org.json.JSONException;
 
+=======
+>>>>>>> e9654a0346640497f90cf53e06a792c90deb3d0e
 import java.util.ArrayList;
+import java.util.Collections;
 
+<<<<<<< HEAD
 public class HighscoresHelper implements Response.Listener<JSONArray>, Response.ErrorListener{
+=======
+public class HighscoresHelper{
+>>>>>>> e9654a0346640497f90cf53e06a792c90deb3d0e
     private Context context;
     private Callback activity;
     private DatabaseReference mDatabase;
@@ -28,6 +34,7 @@ public class HighscoresHelper implements Response.Listener<JSONArray>, Response.
         void gotHighscoresError(String message);
     }
 
+<<<<<<< HEAD
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.d("onResponse", "ERROR");
@@ -60,19 +67,54 @@ public class HighscoresHelper implements Response.Listener<JSONArray>, Response.
     public HighscoresHelper(Context context) {
         this.context = context;
         mDatabase = FirebaseDatabase.getInstance().getReference();
+=======
+    public HighscoresHelper(Context context) {
+        this.context = context;
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+>>>>>>> e9654a0346640497f90cf53e06a792c90deb3d0e
     }
 
     public void getHighscores(Callback activity) {
         this.activity = activity;
 
+<<<<<<< HEAD
         DownloadManager.Query query = mDatabase.orderByChild("score");
         queue.addValueEventListener(this);
+=======
+        // get the children in the highscores database and order them by scores.
+        DatabaseReference reference = mDatabase.child("highscores");
+        Query query = reference.orderByChild("score").limitToLast(2000);
+        query.addValueEventListener(new highscoreValueListener());
+>>>>>>> e9654a0346640497f90cf53e06a792c90deb3d0e
     }
 
-    public void postNewHighscore(String name, int score) {
-        Highscore highscore = new Highscore(name, score);
+    private class highscoreValueListener implements ValueEventListener {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            // create a new ArrayList and get the entries from the database
+            highscores = new ArrayList<>();
 
+            for (DataSnapshot score : dataSnapshot.getChildren()) {
+
+                Highscore item = score.getValue(Highscore.class);
+                highscores.add(item);
+            }
+
+            // reverse the Arraylist to get a descending list.
+            Collections.reverse(highscores);
+            activity.gotHighscores(highscores);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            activity.gotHighscoresError(databaseError.getMessage());
+        }
+    }
+
+    public void postNewHighscore(Highscore new_score) {
         String userId = mDatabase.push().getKey();
-        mDatabase.child("highscores").child(userId).setValue(highscore);
+        mDatabase.child("highscores").child(userId).setValue(new_score);
     }
 }

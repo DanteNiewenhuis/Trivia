@@ -39,8 +39,8 @@
 
     <TextView
         android:id="@+id/response_text"
-        android:layout_width="376dp"
-        android:layout_height="32dp"
+        android:layout_width="553dp"
+        android:layout_height="78dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -95,15 +95,29 @@
 
     <RadioGroup
         android:id="@+id/answers_group"
-        android:layout_width="346dp"
-        android:layout_height="258dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/question_View">
+
+        <RadioButton
+            android:id="@+id/answer_2_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RadioButton" />
+
+        <RadioButton
+            android:id="@+id/answer_3_button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="RadioButton" />
 
         <RadioButton
             android:id="@+id/answer_0_button"
@@ -119,19 +133,6 @@
             android:layout_weight="1"
             android:text="RadioButton" />
 
-        <RadioButton
-            android:id="@+id/answer_2_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="RadioButton" />
-
-        <RadioButton
-            android:id="@+id/answer_3_button"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="RadioButton" />
     </RadioGroup>
 
 </android.support.constraint.ConstraintLayout>
