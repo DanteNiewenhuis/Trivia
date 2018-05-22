@@ -84,7 +84,8 @@ public class TriviaHelper implements Response.Listener<JSONArray>, Response.Erro
         RequestQueue queue = Volley.newRequestQueue(context);
 
         String url = "http://jservice.io/api/clues?category=" + category;
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, this, this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
+                                            null, this, this);
         queue.add(jsonArrayRequest);
     }
 

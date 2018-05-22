@@ -1,5 +1,6 @@
 package com.example.dante.trivia;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.util.Log;
 
@@ -11,12 +12,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HighscoresHelper implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class HighscoresHelper implements Response.Listener<JSONArray>, Response.ErrorListener{
     private Context context;
     private Callback activity;
     private DatabaseReference mDatabase;
@@ -34,7 +35,7 @@ public class HighscoresHelper implements Response.Listener<JSONObject>, Response
     }
 
     @Override
-    public void onResponse(JSONObject response) {
+    public void onResponse(JSONArray response) {
         Log.d("onResponse", "init");
         ArrayList<Highscore> highscores = new ArrayList<>();
         String name;
@@ -59,30 +60,13 @@ public class HighscoresHelper implements Response.Listener<JSONObject>, Response
     public HighscoresHelper(Context context) {
         this.context = context;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                highscores = new ArrayList<>();
-                Log.d("onChange", "empty");
-                for (DataSnapshot score : dataSnapshot.child("highscores").getChildren()) {
-
-                    Log.d("onChange", "add");
-                    Highscore item = score.getValue(Highscore.class);
-                    highscores.add(item);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public void getHighscores(Callback activity) {
         this.activity = activity;
-        activity.gotHighscores(highscores);
+
+        DownloadManager.Query query = mDatabase.orderByChild("score");
+        queue.addValueEventListener(this);
     }
 
     public void postNewHighscore(String name, int score) {
